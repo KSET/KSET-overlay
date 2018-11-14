@@ -1,0 +1,29 @@
+{
+  "name": "obs-overlay",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "autoprefixer": "^9.3.1",
+    "cookie-parser": "~1.4.3",
+    "cssnano": "^4.1.7",
+    "debug": "~2.6.9",
+    "dynamic-marquee": "^1.2.1",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "google-closure-compiler": "^20181028.0.1",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "node-sass": "^4.10.0",
+    "pixrem": "^4.0.1",
+    "postcss": "latest",
+    "postcss-font-magician": "^2.2.1",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "latest",
+    "webpack": "^4.25.1",
+    "webpack-closure-compiler": "^2.1.6"
+  }
+}
