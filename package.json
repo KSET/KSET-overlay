@@ -27,5 +27,8 @@
     "socket.io-client": "latest",
     "webpack": "^4.25.1",
     "webpack-closure-compiler": "^2.1.6"
+  },
+  "devDependencies": {
+    "nexe": "^2.0.0-rc.34"
   }
 }
