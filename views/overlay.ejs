@@ -15,7 +15,11 @@
         <%
         const now = new Date();
         -%>
-        <div id="time"><%- `${now.getHours()}:${now.getMinutes()}` -%></div>
+        <div id="time"><%- `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}` -%></div>
+        <div id="notification">
+            <div class="title"></div>
+            <div class="text"></div>
+        </div>
         <div id="marquee"></div>
     </body>
     <% if(locals.scripts) { -%>
