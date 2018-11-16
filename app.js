@@ -12,6 +12,7 @@ const Settings = new (require('./lib/Settings'))();
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('admin password', Settings.password);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
