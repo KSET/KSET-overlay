@@ -17,9 +17,11 @@ function fn(Socket) {
     });
 
     router.post('/', (req, res) => {
-        const message = Socket.addMessage(req.body.text);
+        const { cookies } = req;
+        const { id } = cookies;
 
-        Socket.send('message:new', message);
+        if (!Socket.sendMessage(id, req.body.text))
+            return res.redirect('/');
 
         res.redirect('/');
     });
