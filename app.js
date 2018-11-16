@@ -40,6 +40,7 @@ const { scripts, styles } = require('./lib/assets');
 app.locals = {
     $_styles: styles,
     $_scripts: scripts,
+    $_settings: Settings,
     rmWhitespace: true,
 };
 
