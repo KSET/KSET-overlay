@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { scripts: $scripts, styles: $styles } = require('../lib/assets');
 
 /**
  * @param [Socket] Socket
@@ -7,7 +8,12 @@ const router = express.Router();
 function fn(Socket) {
 
     router.get('/', (req, res) => {
-        res.render('index');
+        const scripts = $scripts.getAssets('global', 'index');
+        const styles = $styles.getAssets('global', 'index');
+
+        const opts = { scripts, styles };
+
+        res.render('index', opts);
     });
 
     router.get('/messages.json', (req, res) => {
@@ -15,7 +21,12 @@ function fn(Socket) {
     });
 
     router.get('/overlay', (req, res) => {
-        res.render('overlay');
+        const scripts = $scripts.getAssets('global', 'overlay');
+        const styles = $styles.getAssets('global', 'overlay');
+
+        const opts = { scripts, styles };
+
+        res.render('overlay', opts);
     });
 
     return router;
