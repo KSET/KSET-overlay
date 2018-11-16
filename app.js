@@ -120,5 +120,9 @@ function onListening() {
     const bind = typeof addr === 'string'
                  ? 'pipe ' + addr
                  : 'port ' + addr.port;
+
+    console.log(`Started server on ${Settings.defaultUrl}`);
+    console.log(`Admin password: ${Settings.password}`);
+
     debug('Listening on ' + bind);
 }
