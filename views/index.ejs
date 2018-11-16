@@ -1,39 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <script src="/socket.io/socket.io.js"></script>
+        <% if(locals.styles) { %>
+            <% styles.forEach(({ link, tag }) => { -%>
+                <link rel="stylesheet" href="<%- `${link}?v=${tag}` -%>">
+            <% }) -%>
+        <% } %>
     </head>
     <body>
         <form id="chat-message-form">
             <input type="text" id="chat-message-input">
         </form>
-        <script>
-            (() => {
-                const socket = io();
-                const form = document.getElementById('chat-message-form');
-                const input = document.getElementById('chat-message-input');
-
-                socket.on('message:new', () => {
-                    fetch('/messages.json')
-                        .then((res) => res.json())
-                        .then(console.log);
-                });
-
-                form.addEventListener('submit', (event) => {
-                    event.preventDefault();
-
-                    const { value } = input;
-
-                    if (!value)
-                        return;
-
-                    socket.emit('message', value.trim(), (...args) => {
-                        console.info('|>', ...args);
-                        input.value = '';
-                    });
-                });
-            })();
-        </script>
+        <% if(locals.scripts) { -%>
+            <% scripts.forEach(({ link, href, tag }) => { -%>
+                <script src="<%- `${link}?v=${tag}` -%>"></script>
+            <% }) -%>
+        <% } -%>
     </body>
 </html>
