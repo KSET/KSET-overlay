@@ -9,10 +9,11 @@ const io = require('socket.io')(server);
 const Socket = new (require('./lib/Socket'))(io);
 const Settings = new (require('./lib/Settings'))();
 
+app.set('settings', Settings);
+
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('admin password', Settings.password);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
