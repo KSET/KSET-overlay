@@ -7,6 +7,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const Socket = new (require('./lib/Socket'))(io);
+const Settings = new (require('./lib/Settings'))();
 
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
@@ -56,36 +57,12 @@ const debug = require('debug')('obs-overlay:server');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+app.set('host', Settings.host);
+app.set('port', Settings.port);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
+server.listen(app.set('port'), app.set('host'));
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-    const port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.
@@ -96,6 +73,7 @@ function onError(error) {
         throw error;
     }
 
+    const port = app.set('port');
     const bind = typeof port === 'string'
                  ? 'Pipe ' + port
                  : 'Port ' + port;
