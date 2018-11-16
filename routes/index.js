@@ -3,7 +3,7 @@ const router = express.Router();
 const { scripts: $scripts, styles: $styles } = require('../lib/assets');
 
 /**
- * @param [Socket] Socket
+ * @param {Socket} Socket
  */
 function fn(Socket) {
 
@@ -14,6 +14,14 @@ function fn(Socket) {
         const opts = { scripts, styles };
 
         res.render('index', opts);
+    });
+
+    router.post('/', (req, res) => {
+        const message = Socket.addMessage(req.body.text);
+
+        Socket.send('message:new', message);
+
+        res.redirect('/');
     });
 
     router.get('/messages.json', (req, res) => {
