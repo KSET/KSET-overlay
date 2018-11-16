@@ -9,7 +9,7 @@
     </head>
     <body>
         <form id="chat-message-form">
-            <input type="text" id="chat-message-input">
+            <input name="text" type="text" id="chat-message-input">
         </form>
         <% if(locals.scripts) { -%>
             <% scripts.forEach(({ link, href, tag }) => { -%>
