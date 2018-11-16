@@ -29,6 +29,11 @@ const indexRouter = require('./routes/index');
 
 app.use('/', indexRouter(Socket));
 
+app.get('/favicon.ico', (req, res) => {
+    res.status(404);
+    res.end();
+});
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     next(createError(404));
