@@ -8,7 +8,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { serveClient: false });
 const Socket = new (require('./lib/Socket'))(io);
-const Settings = new (require('./lib/Settings'))();
+const Settings = require('./lib/settings');
 
 app.set('settings', Settings);
 
