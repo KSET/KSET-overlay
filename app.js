@@ -2,10 +2,11 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const randomGenerator = require('password-generator');
 
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { serveClient: false });
 const Socket = new (require('./lib/Socket'))(io);
 const Settings = new (require('./lib/Settings'))();
 
@@ -13,12 +14,26 @@ app.set('settings', Settings);
 
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
+require('ejs');
 app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, 'public')));
+app.use((req, res, next) => {
+    const { cookies } = req;
+    const { id } = cookies;
+
+    if (id)
+        return next();
+
+    const newID = randomGenerator(64);
+    res.cookie('id', newID);
+    req.cookies.id = newID;
+
+    next();
+});
 
 const { scripts, styles } = require('./lib/assets');
 
