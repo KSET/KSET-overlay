@@ -111,5 +111,9 @@ body {
 
             }
         }
+
+        @media only screen and (max-width: 696px) {
+            grid-template-columns: auto;
+        }
     }
 }
