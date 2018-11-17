@@ -34,7 +34,28 @@ app.use((req, res, next) => {
 
     next();
 });
+app.use(
+    require('express-jwt')(
+        {
+            secret: Settings.secret,
+            credentialsRequired: false,
+            getToken(req) {
+                const { headers, query, cookies } = req;
 
+                if (headers.authorization && headers.authorization.split(' ')[ 0 ] === 'Bearer')
+                    return headers.authorization.split(' ')[ 1 ];
+
+                if (query && query.token)
+                    return query.token;
+
+                if (cookies && cookies.auth)
+                    return cookies.auth;
+
+                return null;
+            },
+        },
+    ),
+);
 const { scripts, styles } = require('./lib/assets');
 
 app.locals = {
@@ -45,8 +66,10 @@ app.locals = {
 };
 
 const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login');
 
 app.use('/', indexRouter(Socket));
+app.use('/', loginRouter(Socket));
 
 app.get('/favicon.ico', (req, res) => {
     res.status(404);
