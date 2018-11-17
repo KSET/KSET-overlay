@@ -13,11 +13,13 @@
     </head>
     <body>
         <div id="container" is="container">
+            <h1 class="message-header">Pošalji poruku na AfterBrucifer!</h1>
             <div class="meta-data" is="meta-data">
                 <span><%= rateLimiter.left -%> / <%= rateLimiter.max -%></span>
             </div>
             <form action="" method="POST" class="chat-message-form">
                 <input maxlength="<%= $_settings.maxMessageLength -%>" name="text" placeholder="Pošalji poruku :)" type="text">
+                <span></span>
                 <input type="submit" value="Pošalji!">
             </form>
         </div>
