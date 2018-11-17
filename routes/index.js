@@ -24,9 +24,9 @@ function fn(Socket) {
         const { id } = cookies;
 
         if (!Socket.sendMessage(id, req.body.text))
-            return res.redirect('/');
+            return res.redirect('./');
 
-        res.redirect('/');
+        res.redirect('./');
     });
 
     router.get('/messages.json', (req, res) => {
