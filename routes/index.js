@@ -30,6 +30,18 @@ function fn(Socket) {
         res.json(Socket.getMessages());
     });
 
+    router.get('/data.json', (req, res) => {
+        const { cookies } = req;
+        const { id } = cookies;
+
+        const data = Socket.rateLimiter.getOrCreate(id);
+
+        if (data)
+            return res.json(data.inspect());
+
+        res.json({});
+    });
+
     router.get('/overlay', (req, res) => {
         const scripts = $scripts.getAssets('global', 'overlay');
         const styles = $styles.getAssets('global', 'overlay');
