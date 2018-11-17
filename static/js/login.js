@@ -66,6 +66,7 @@ export class Login {
             redirect: 'follow',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
+                'X-Requested-With': 'XMLHttpRequest',
             },
             body: JSON.stringify(this.formData()),
         };
