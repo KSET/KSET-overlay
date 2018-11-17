@@ -8,10 +8,22 @@
         <% } %>
     </head>
     <body>
-        <div class="meta-data"><%= `${rateLimiter.left}/${rateLimiter.max}` -%></div>
-        <form method="POST" id="chat-message-form">
-            <input <%- rateLimiter.ready || 'disabled="disabled"' -%> name="text" type="text" id="chat-message-input">
-        </form>
+        <div id="container" is="container">
+            <div class="meta-data" is="meta-data">
+                <span class="left"><%= rateLimiter.left -%></span>
+                <span>/</span>
+                <span class="max"><%= rateLimiter.max -%></span>
+            </div>
+            <form action="" method="POST" class="chat-message-form">
+                <input maxlength="<%= $_settings.maxMessageLength -%>" name="text" placeholder="Pošalji poruku :)" type="text">
+            </form>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+        <script src="/js/app.js"></script>
+        <script>
+            window.app = App(<%- JSON.stringify({ rateLimiter, maxMessageLength: $_settings.maxMessageLength }) -%>);
+        </script>
         <% if(locals.scripts) { -%>
             <% scripts.forEach(({ link, href, tag }) => { -%>
                 <script src="<%- `${link}?v=${tag}` -%>"></script>
