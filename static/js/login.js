@@ -52,7 +52,7 @@ export class Login {
         if (!state)
             return;
 
-        window.location.href = '/admin';
+        window.location.href = 'admin';
 
         this.getSubmitButton().value = 'Success. Redirecting...';
     }
