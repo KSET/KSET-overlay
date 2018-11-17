@@ -36,6 +36,7 @@ window.App = ({ rateLimiter, maxMessageLength = 69 }) => {
             <form action="" method="POST" @submit.prevent="handleSubmit" class="chat-message-form">
                 <input :maxlength="this.messageMaxLength" :disabled="!this.ready" type="text" name="text" ref="input" v-model="text" placeholder="Pošalji poruku :)">
                 <span>{{ text.length }}/{{ messageMaxLength }}</span>
+                <input :disabled="!this.ready || this.messageTooShort" type="submit" value="Pošalji!">
             </form>
         `,
         data() {
@@ -56,6 +57,10 @@ window.App = ({ rateLimiter, maxMessageLength = 69 }) => {
         computed: {
             messageMaxLength() {
                 return maxMessageLength;
+            },
+
+            messageTooShort() {
+                return this.message.length < 2;
             },
 
             ready() {

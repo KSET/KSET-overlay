@@ -20,6 +20,7 @@
             </div>
             <form action="" method="POST" class="chat-message-form">
                 <input maxlength="<%= $_settings.maxMessageLength -%>" name="text" placeholder="Pošalji poruku :)" type="text">
+                <input type="submit" value="Pošalji!">
             </form>
         </div>
         <% if(locals.scripts) { -%>
