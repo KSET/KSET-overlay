@@ -1,0 +1,75 @@
+html, body {
+    position: relative;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background: #424242;
+    align-items: center;
+    justify-content: center;
+    color: #fafafa;
+    flex: 1 0 auto;
+    animation-name: color-change;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+
+    @keyframes color-change {
+        0% {
+            background: #6a1b9a;
+        }
+
+        25% {
+            background: #c62828;
+        }
+
+        50% {
+            background: #fbc02d;
+        }
+
+        75% {
+            background: #2e7d32;
+        }
+
+        100% {
+            background: #283593;
+        }
+    }
+}
+
+#container {
+    display: grid;
+    align-content: center;
+    align-items: center;
+
+    .message-header {
+        text-align: center;
+        font-size: 4em;
+        font-weight: lighter;
+        text-shadow: 0 1px 1px #212121, 2px 2px 4px #212121;
+    }
+
+    .chat-message-form {
+        font-size: 1.5em;
+        display: grid;
+        grid-template-columns: auto 4em;
+        align-items: center;
+        justify-items: center;
+
+        input {
+            font-size: 1em;
+            padding: .5em;
+            width: 40vw;
+            min-width: 16em;
+            border: none;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+
+            &:disabled {
+                background: #fafafa99;
+            }
+        }
+    }
+}
