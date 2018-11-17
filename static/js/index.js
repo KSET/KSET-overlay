@@ -5,11 +5,7 @@ import io from 'socket.io-client/dist/socket.io';
     const form = document.getElementById('chat-message-form');
     const input = document.getElementById('chat-message-input');
 
-    socket.on('message:new', () => {
-        fetch('/messages.json')
-            .then((res) => res.json())
-            .then(console.log);
-    });
+    let timeout = 0;
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -19,9 +15,22 @@ import io from 'socket.io-client/dist/socket.io';
         if (!value)
             return;
 
-        socket.emit('message', value.trim(), (...args) => {
-            console.info('|>', ...args);
-            input.value = '';
+        socket.emit('message', value.trim(), (sent, meta) => {
+            if (sent)
+                input.value = '';
+
+            const el = document.querySelector('.meta-data');
+            el.innerText = `${meta.left}/${meta.max}`;
+
+            clearTimeout(timeout);
+            setTimeout(async () => {
+                const data = await fetch('/data.json').then((res) => res.json());
+
+                if (!data.max)
+                    Object.assign(data, meta);
+
+                el.innerText = `${data.left}/${data.max}`;
+            }, timeout);
         });
     });
 })();

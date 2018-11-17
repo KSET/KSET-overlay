@@ -8,8 +8,9 @@
         <% } %>
     </head>
     <body>
+        <div class="meta-data"><%= `${rateLimiter.left}/${rateLimiter.max}` -%></div>
         <form method="POST" id="chat-message-form">
-            <input name="text" type="text" id="chat-message-input">
+            <input <%- rateLimiter.ready || 'disabled="disabled"' -%> name="text" type="text" id="chat-message-input">
         </form>
         <% if(locals.scripts) { -%>
             <% scripts.forEach(({ link, href, tag }) => { -%>

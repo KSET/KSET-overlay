@@ -11,7 +11,10 @@ function fn(Socket) {
         const scripts = $scripts.getAssets('global', 'index');
         const styles = $styles.getAssets('global', 'index');
 
-        const opts = { scripts, styles };
+        const { cookies } = req;
+        const { id } = cookies;
+
+        const opts = { scripts, styles, rateLimiter: Socket.rateLimiter.getOrCreate(id).inspect() };
 
         res.render('index', opts);
     });
