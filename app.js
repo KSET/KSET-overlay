@@ -56,6 +56,17 @@ app.use(
         },
     ),
 );
+app.use((err, req, res, next) => {
+    if (err.name !== 'UnauthorizedError')
+        return next();
+
+    res.clearCookie('auth');
+    delete req.cookies.auth;
+
+    next();
+});
+
+
 const { scripts, styles } = require('./lib/assets');
 
 app.locals = {
