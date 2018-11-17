@@ -7,6 +7,7 @@ window.App = ({ rateLimiter, maxMessageLength = 69 }) => {
         {
             data: {
                 rateLimiter,
+                maxMessageLength,
             },
             methods: {
                 fetchRateLimiter() {
@@ -56,7 +57,7 @@ window.App = ({ rateLimiter, maxMessageLength = 69 }) => {
         },
         computed: {
             messageMaxLength() {
-                return maxMessageLength;
+                return $data.maxMessageLength;
             },
 
             messageTooShort() {
