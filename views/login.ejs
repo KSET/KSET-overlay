@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="theme-color" content="#1E1E1E">
+        <meta name="msapplication-TileColor" content="#1E1E1E">
+        <title>KSET AfterBrucifer - Admin Login</title>
+        <% if(locals.styles) { %>
+            <% styles.forEach(({ link, tag }) => { -%>
+                <link rel="stylesheet" href="<%- `${link}?v=${tag}` -%>">
+            <% }) -%>
+        <% } %>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="login-container">
+                <form action="" method="POST">
+                    <fieldset>
+                        <legend><h1 class="form-title">Login</h1></legend>
+                        <div class="form-inputs">
+                            <div class="form-input">
+                                <input id="username" type="text" name="username" required autofocus>
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="form-input">
+                                <input id="password" type="password" name="password" required>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="form-input">
+                                <input type="submit" value="Login">
+                            </div>
+                            <input type="hidden" name="<%= csrf.name -%>" value="<%= csrf.value -%>">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <% if(locals.scripts) { -%>
+                <% scripts.forEach(({ link, href, tag }) => { -%>
+                    <script src="<%- `${link}?v=${tag}` -%>"></script>
+                <% }) -%>
+            <% } -%>
+            <script>
+                (function() {
+                    new Login(document.querySelector('form'));
+                })();
+            </script>
+        </div>
+    </body>
+</html>
