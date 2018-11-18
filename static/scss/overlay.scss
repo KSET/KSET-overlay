@@ -10,13 +10,13 @@ html, body {
 
 #marquee {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    height: 4em;
+    height: 3.8rem;
     padding: .5rem 0;
-    border-top: 3px solid #fafafa;
+    border-bottom: 3px solid #fafafa;
     color: #fafafa;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .5), 0 0 1px rgba(0, 0, 0, .8);
     background-color: #e53935;
@@ -34,7 +34,7 @@ html, body {
 
 #time {
     position: fixed;
-    top: 2rem;
+    top: 6rem;
     left: 2rem;
     font-weight: bolder;
     color: #fafafa;
@@ -50,8 +50,8 @@ html, body {
 
     position: fixed;
     font-size: 1.3rem;
-    bottom: 5.5rem;
-    left: 6vw;
+    top: 6.8rem;
+    right: 2rem;
     width: 20vw;
     padding: .5em .5em .5em #{map-get($triangle, width)};
     border-right: 6px solid #fafafa;
@@ -66,11 +66,11 @@ html, body {
     transition-property: opacity;
 
     &::before {
-        $offset: -.2em;
+        $offset: -.11em;
 
         content: "\A";
         position: absolute;
-        bottom: $offset;
+        bottom: $offset * 1.1;
         left: $offset;
         border-color: transparent transparent transparent #fafafa;
         border-style: solid;
