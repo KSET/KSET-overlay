@@ -92,3 +92,11 @@ html, body {
         min-height: 2.5em;
     }
 }
+
+#logo {
+    position: fixed;
+    bottom: 1rem;
+    left: .8rem;
+    width: 10vw;
+    fill: #fafafa;
+}

@@ -21,6 +21,8 @@
             <div class="text"></div>
         </div>
         <div id="marquee"></div>
+        <% const logo = $_images.get('logo').pop(); %>
+        <img src="<%- logo.link -%>?v=<%- logo.tag -%>" alt="KSET logo" id="logo">
     </body>
     <% if(locals.scripts) { -%>
         <% scripts.forEach(({ link, tag }) => { -%>
