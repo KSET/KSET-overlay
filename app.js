@@ -67,11 +67,12 @@ app.use((err, req, res, next) => {
 });
 
 
-const { scripts, styles } = require('./lib/assets');
+const { scripts, styles, images } = require('./lib/assets');
 
 app.locals = {
     $_styles: styles,
     $_scripts: scripts,
+    $_images: images,
     $_settings: Settings,
     rmWhitespace: true,
 };
