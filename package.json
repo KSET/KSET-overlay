@@ -34,5 +34,11 @@
   },
   "devDependencies": {
     "nexe": "^2.0.0-rc.34"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "public/js/*.js",
+      "static/js/*.js"
+    ]
   }
 }
