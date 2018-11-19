@@ -79,9 +79,11 @@ app.locals = {
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
+const adminRouter = require('./routes/admin');
 
 app.use('/', indexRouter(Socket));
 app.use('/', loginRouter(Socket));
+app.use('/admin', adminRouter(Socket));
 
 app.get('/favicon.ico', (req, res) => {
     res.status(404);

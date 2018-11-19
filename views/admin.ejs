@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>KSET AfterBrucifer - Admin Page</title>
+        <% if(locals.styles) { %>
+            <% styles.forEach(({ link, tag }) => { -%>
+                <link rel="stylesheet" href="<%- `${link}?v=${tag}` -%>">
+            <% }) -%>
+        <% } %>
+    </head>
+    <body>
+        <%
+        const settings = locals.settings || [];
+        const messages = locals.messages || [];
+        -%>
+        <div id="container" is="container">Loading...</div>
+        <% if(locals.scripts) { -%>
+            <% scripts.forEach(({ link, tag }) => { -%>
+                <script src="<%- `${link}?v=${tag}` -%>"></script>
+            <% }) -%>
+            <script>
+                App(<%- JSON.stringify({ settings, messages }) -%>);
+            </script>
+        <% } -%>
+    </body>
+</html>
