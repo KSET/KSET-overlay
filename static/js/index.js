@@ -47,7 +47,7 @@ window.App = ({ rateLimiter, maxMessageLength = 69 }) => {
         },
         methods: {
             handleSubmit() {
-                socket.emit('message', this.message, (sent, meta) => {
+                socket.emit('add message', this.message, (sent, meta) => {
                     if (sent)
                         Vue.set(this, 'text', '');
 
