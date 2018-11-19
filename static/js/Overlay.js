@@ -75,6 +75,19 @@ class Overlay {
             this._add(message);
         });
 
+        socket.on('edit message', (message) => {
+            const index = this.queue.queue.findIndex(({ id }) => message.id === id);
+
+            if (index < 0)
+                return;
+
+            this.queue.queue[ index ] = message;
+        });
+
+        socket.on('delete message', (id) => {
+            this.queue.queue = this.queue.queue.filter((message) => message.id !== id);
+        });
+
         marquee.onItemRequired(({ immediatelyFollowsPrevious }) => {
             if (!this._queueHasElements())
                 return;
