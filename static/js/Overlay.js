@@ -127,7 +127,7 @@ class Overlay {
             clock.innerText = `${padStart(now.getHours())}:${padStart(now.getMinutes())}`;
         }, 1000);
 
-        fetch('/messages.json')
+        fetch('./messages.json')
             .then((res) => res.json())
             .then((messages) => {
                 messages.forEach((message) => this._addToQueue(message));
