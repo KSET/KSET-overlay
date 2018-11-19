@@ -71,7 +71,7 @@ class Overlay {
                 messages.forEach((message) => this._addToQueue(message));
             });
 
-        socket.on('message:new', (message) => {
+        socket.on('new message', (message) => {
             this._add(message);
         });
 
