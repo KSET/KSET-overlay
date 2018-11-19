@@ -77,6 +77,10 @@ app.locals = {
     rmWhitespace: true,
 };
 
+Socket.on('settings change', (newSettings) => {
+    app.locals.$_settings = newSettings;
+});
+
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const adminRouter = require('./routes/admin');

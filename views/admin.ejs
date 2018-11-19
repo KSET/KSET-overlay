@@ -23,7 +23,7 @@
                 <script src="<%- `${link}?v=${tag}` -%>"></script>
             <% }) -%>
             <script>
-                App(<%- JSON.stringify({ settings, messages }) -%>);
+                App(<%- JSON.stringify({ settings, messages, changeableSettings: $_settings.changeableSettings }) -%>);
             </script>
         <% } -%>
     </body>

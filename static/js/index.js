@@ -31,6 +31,14 @@ window.App = ({ rateLimiter, maxMessageLength = 69 }) => {
         Vue.set($data, 'rateLimiter', meta);
     });
 
+    socket.on('settings change', ({ maxMessageLength, messagesPerInterval }) => {
+        if (maxMessageLength)
+            Vue.set($data, 'maxMessageLength', maxMessageLength);
+
+        if (messagesPerInterval)
+            $data.fetchRateLimiter();
+    });
+
     Vue.component('message-form', {
         //language=Vue
         template: `
