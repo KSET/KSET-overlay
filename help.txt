@@ -3,16 +3,17 @@ KSET Stream Overlay
 Author: Josip Igrec <me@allypost.net>
 
 Configuration:
-    ###           Options marked with a [C] are changeable from the admin interface              ###
+    ###              Options marked with a [C] are changeable from the admin interface               ###
 
-    --port PORT                 # Port the application listens on       (default: 3000)
-    --host HOST                 # Host the application listens on       (default: localhost)
-    --password PASSWORD         # [C] Admin password                    (default: randomly generated)
+    --port PORT                     # Port the application listens on       (default: 3000)
+    --host HOST                     # Host the application listens on       (default: localhost)
+    --password PASSWORD             # [C] Admin password                    (default: randomly generated)
 
-    --maxMessageLength LENGTH   # [C] Maximum message length            (default: 120)
-    --messagesPerInterval NUM   # [C] Number of messages per interval   (default: 5)
+    --maxMessageLength LENGTH       # [C] Maximum message length            (default: 120)
+    --messagesPerInterval NUM       # [C] Number of messages per interval   (default: 5)
+    --messagesIntervalLength SECS   # Interval length (in seconds)          (default: 60)
 
-    --secret SECRET             # Secret for the JWT signing            (default: randomly generated)
-    --baseUrl BASE_URL          # [C] Base url for the page             (default: 'http://HOST:PORT')
+    --secret SECRET                 # Secret for the JWT signing            (default: randomly generated)
+    --baseUrl BASE_URL              # [C] Base url for the page             (default: 'http://HOST:PORT')
 
-    --help                      # Show this page
+    --help                          # Show this page
