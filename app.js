@@ -10,6 +10,11 @@ const io = require('socket.io')(server, { serveClient: false });
 const Socket = new (require('./lib/Socket'))(io);
 const Settings = require('./lib/settings');
 
+if (Settings.showHelp) {
+    console.log(require('fs').readFileSync('help.txt', 'utf-8'));
+    process.exit(0);
+}
+
 app.set('settings', Settings);
 
 // view engine setup
