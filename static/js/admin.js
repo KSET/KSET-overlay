@@ -1,7 +1,7 @@
 import io  from 'socket.io-client/dist/socket.io';
 import Vue from 'vue/dist/vue.esm';
 
-window.App = ({ messages = [], settings = {} }) => {
+window.App = ({ messages = [], settings = {}, changeableSettings = [] }) => {
     const socket = io();
 
     function objectDiff(old, changed) {
