@@ -89,7 +89,7 @@ class Overlay {
     _add(message, withDelimiter = false) {
         const { marquee } = this;
 
-        if (marquee.isWaitingForItem())
+        if (!this._queueHasElements() && marquee.isWaitingForItem())
             this._addToMarquee(message, withDelimiter);
         else
             this._addToQueue(message);
