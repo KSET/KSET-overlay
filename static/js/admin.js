@@ -28,6 +28,10 @@ window.App = ({ messages = [], settings = {} }) => {
                     else
                         sendSettings = true;
                 },
+                messages(changed) {
+                    if (changed.length > 10)
+                        changed.shift();
+                },
             },
 
             methods: {
