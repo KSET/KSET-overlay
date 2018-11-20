@@ -2,6 +2,17 @@ import io  from 'socket.io-client/dist/socket.io';
 import Vue from 'vue/dist/vue.esm';
 
 window.App = ({ messages = [], settings = {} }) => {
+    const socket = io();
+
+    function objectDiff(old, changed) {
+        return (
+            Object.entries(old)
+                  .filter(([ k, v ]) => changed[ k ] !== v)
+                  .reduce((acc, [ k ]) => Object.assign(acc, { [ k ]: changed[ k ] }), {})
+        );
+    }
+
+    let sendSettings = true;
     const $data = new Vue(
         {
             data: {
@@ -9,8 +20,13 @@ window.App = ({ messages = [], settings = {} }) => {
                 settings: settings,
             },
             watch: {
-                settings(_, settings) {
-                    console.log('|> SETTINGS', Object.assign({}, settings));
+                settings(changed, old) {
+                    const newSettings = objectDiff(old, changed);
+
+                    if (sendSettings)
+                        socket.emit('set settings', newSettings);
+                    else
+                        sendSettings = true;
                 },
             },
 
@@ -100,11 +116,11 @@ window.App = ({ messages = [], settings = {} }) => {
     Vue.component('settings-form', {
         //language=Vue
         template: `
-            <form v-if="Object.keys(this.changed).length > 0" action="" method="POST" @submit.prevent="handleSubmit" class="chat-message-form">
+            <form v-if="Object.keys(this.settings).length > 0" action="" method="POST" @submit.prevent="handleSubmit" class="chat-message-form">
                 <fieldset>
                     <legend>Settings</legend>
-                    <div v-for="(value, key) in this.changed">
-                        <input type="text" :id="'setting-' + key" :name="key" v-model="changed[key]">
+                    <div v-for="(value, key) in this.settings">
+                        <input type="text" :id="'setting-' + key" :name="key" v-model="settings[key]">
                         <label :for="'setting-' + key">{{ key.replace(/([a-zA-Z])(?=[A-Z])/g, '$1 ').toLowerCase().replace(/^./, str => str.toUpperCase()) }}</label>
                     </div>
                     <input type="submit" value="Change">
@@ -113,15 +129,46 @@ window.App = ({ messages = [], settings = {} }) => {
         `,
         data() {
             return {
-                changed: this.getChangeable($data.settings),
+                settings: this.getChangeable($data.settings),
             };
+        },
+        computed: {
+            changed() {
+                const old = $data.settings;
+                const delta = this.getDelta(old, this.settings);
+
+                return this.getChangeable(delta);
+            },
+            newSettings() {
+                return Object.assign({}, $data.settings, this.changed);
+            },
+            globalSettings() {
+                return $data.settings;
+            },
+        },
+        watch: {
+            globalSettings: {
+                handler(globalSettings) {
+                    const newSettings = Object.entries(objectDiff(this.settings, globalSettings));
+
+                    if (newSettings.length === 0)
+                        return;
+
+                    for (const [ k, v ] of newSettings)
+                        Vue.set(this.settings, k, v);
+                },
+                deep: true,
+            },
         },
         methods: {
             handleSubmit() {
-                console.log('|>', this.settings);
+                if (Object.keys(this.changed).length === 0)
+                    return;
+
+                Vue.set($data, 'settings', this.newSettings);
             },
             changeableKeys() {
-                return [ 'maxMessageLength', 'baseUrl' ];
+                return changeableSettings;
             },
             getChangeable(settings, settingsList = this.changeableKeys(), asObject = true) {
                 const newList =
@@ -135,23 +182,7 @@ window.App = ({ messages = [], settings = {} }) => {
                 return newList.reduce((acc, [ k, v ]) => Object.assign(acc, { [ k ]: v }), {});
             },
             getDelta(old, changed) {
-                return (
-                    Object.entries(old)
-                          .filter(([ k, v ]) => changed[ k ] !== v)
-                          .reduce((acc, [ k ]) => Object.assign(acc, { [ k ]: changed[ k ] }), {})
-                );
-            },
-        },
-        watch: {
-            changed: {
-                handler(_, changed) {
-                    const old = $data.settings;
-                    const delta = this.getDelta(old, changed);
-                    const settings = this.getChangeable(delta);
-
-                    console.log('|> WATCH:CHANGED', settings);
-                },
-                deep: true,
+                return objectDiff(old, changed);
             },
         },
     });
@@ -256,7 +287,6 @@ window.App = ({ messages = [], settings = {} }) => {
         },
     });
 
-    const socket = io();
     const app = new Vue(
         {
             el: '#container',
@@ -268,6 +298,11 @@ window.App = ({ messages = [], settings = {} }) => {
     socket.on('new message', () => $data.fetchMessages());
     socket.on('edit message', (message) => $data.editMessage(message));
     socket.on('delete message', (id) => $data.deleteMessage(id));
+
+    socket.on('settings change', (newSettings) => {
+        sendSettings = false;
+        Vue.set($data, 'settings', newSettings);
+    });
 
     return app;
 };
