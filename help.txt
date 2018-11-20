@@ -14,6 +14,6 @@ Configuration:
     --messagesIntervalLength SECS   # Interval length (in seconds)          (default: 60)
 
     --secret SECRET                 # Secret for the JWT signing            (default: randomly generated)
-    --baseUrl BASE_URL              # [C] Base url for the page             (default: 'http://HOST:PORT')
+    --baseUrl BASE_URL              # Base url for the page                 (default: 'http://HOST:PORT')
 
     --help                          # Show this page
