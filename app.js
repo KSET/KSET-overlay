@@ -86,6 +86,8 @@ Socket.on('settings change', (newSettings) => {
     app.locals.$_settings = newSettings;
 });
 
+Socket.on('settings change:password', (newPassword) => console.log(`Admin password: ${newPassword}`));
+
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const adminRouter = require('./routes/admin');
